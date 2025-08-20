@@ -2,18 +2,6 @@
 
 This project explores various operations and algorithms on point clouds using Python and Open3D.
 
-## Project Overview
-The project includes functionality for detecting planes in point clouds, reorienting these planes, and smoothing the point clouds using Poisson surface reconstruction. It aims to provide a comprehensive set of tools for point cloud manipulation and analysis.
-
-Plane Detector
-The code of this section can be found in the plane_detector.py file
-Refer to Floor Detection subsection in Playground.ipynb
-For plane detection I experimented with three different approaches -
-
-RANSAC (Random Sample Consensus): Iteratively selects a random subset of points, fits a model (plane), and evaluates the fit by counting inliers within a distance threshold.
-
-<img width="623" height="625" alt="image" src="https://github.com/user-attachments/assets/ea2d4a4d-74b1-4da0-9561-eb109f5dc117" />
-
 # Playing With Point Cloud
 This project explores various operations and algorithms on point clouds using Python and Open3D.
 
@@ -26,60 +14,47 @@ The project includes functionality for detecting planes in point clouds, reorien
 
 For plane detection I experimented with three different approaches - 
 * RANSAC (Random Sample Consensus): Iteratively selects a random subset of points, fits a model (plane), and evaluates the fit by counting inliers within a distance threshold.
-<p align="center">
-  <img src="images/RANSAC_shoe.png" width="90%" alt="Image 1 Caption">
-</p>
-
+<img width="623" height="625" alt="image" src="https://github.com/user-attachments/assets/83e92298-88ca-4190-8e5a-86e802c6b764" />
 
 * Convex Hull:  Computes the smallest convex polygon that can enclose all points in the point cloud.
-<p align="center">
-  <img src="images/ConvexHull_1.png" width="90%" alt="Image 1 Caption">
-</p>
+<img width="589" height="598" alt="image" src="https://github.com/user-attachments/assets/1884cc7d-c7f0-41c9-b458-d2bf552c78ee" />
+
 
 * PCA (Priniciple Component Analysis): Uses eigenvalue decomposition of the covariance matrix of the points to find the main directions of variation. The normal to the plane is given by the eigenvector corresponding to the smallest eigenvalue.
-<p align="center">
-  <img src="images/PCA_shoe2_pc.png" width="90%" alt="Image 1 Caption">
-</p>
+<img width="629" height="625" alt="image" src="https://github.com/user-attachments/assets/a42e2423-db9f-4204-9e40-74f999a802bf" />
+
 
 #### RANSAC (Random Sample Consensus): The winning algorithm
 Since the given data was noisy and outlier rich I reasoned that RANSAC will be the better approach compared to the other two approaches and verified it experimentally.
 
 <p align="center">
-  <img src="images/ConvexHull_glove_pc.png" width="30%" alt="Plane Estimation using convex Hull">
-  <img src="images/PCA_glove_pc.png" width="30%" alt="Plane Estimation using PCA">
-  <img src="images/RANSAC_glove_pc.png" width="30%" alt="Plane Estimation Using RANSAC">
+<img width="408" height="497" alt="image" src="https://github.com/user-attachments/assets/8febd61d-14db-4df7-a4a8-ea4521b086db" />
+<img width="463" height="519" alt="image" src="https://github.com/user-attachments/assets/5ff52907-f62d-48c2-80e8-b5865d794ec1" />
+<img width="399" height="551" alt="image" src="https://github.com/user-attachments/assets/78cf9f5e-5a1d-49a2-9cf4-66cacd121f07" />
 </p>
 
-<p align="center">
-  <span style="display:inline-block; width:30%; text-align:center;">Plane Estimation using convex Hull</span>
-  <span style="display:inline-block; width:30%; text-align:center;">Plane Estimation using PCA</span>
-  <span style="display:inline-block; width:30%; text-align:center;">Plane Estimation Using RANSAC</span>
-</p>
 
 As can be observed from the above cases whenever there are enough inlier points available this approach works extremely well.
 
 However there are three specific cases where this approach fails, 
 * Insufficient Inliers: RANSAC relies on finding a sufficient number of inliers that support the proposed plane model. If the actual number of inliers (points that lie on the plane) is too low compared to the total number of points, RANSAC might fail to find the correct plane.
 
-<p align="center">
-  <img src="images/LowInlierRANSAC.png" width="90%" alt="Image 1 Caption">
-</p>
+<img width="574" height="587" alt="image" src="https://github.com/user-attachments/assets/849168f7-2ecf-46b7-8188-1796395258ad" />
+
 
 * Multiple Planes: If the point cloud contains multiple planes or other geometric structures, RANSAC might not be able to distinguish between them effectively. It could end up fitting a plane that is an average of several planes or fitting the wrong plane entirely.
   
-<p align="center">
-  <img src="images/Multiple_planes_RANSAC.png" width="90%" alt="Image 1 Caption">
-</p>
+<img width="602" height="589" alt="image" src="https://github.com/user-attachments/assets/d982b384-68ea-442f-8ea5-92d680ff0483" />
+
 
 * High Noise Levels: If the point cloud has a high level of noise, the random sampling process may frequently select noisy points, leading to incorrect plane models.
   
-<p align="center">
-  <img src="images/HighNOiseRANSAC.png" width="90%" alt="Image 1 Caption">
-</p>
+<img width="513" height="594" alt="image" src="https://github.com/user-attachments/assets/2e8197a5-0aa4-4390-accf-d65c85a2a88f" />
+
 
 #### Future modification that can address the issues
 
-To address the limitations of RANSAC in plane detection within point clouds, we can consider a modified approach that combines RANSAC with additional techniques. Specifically, we can enhance the robustness of RANSAC by incorporating hierarchical clustering and adaptive parameter tuning. Here's a detailed approach to tackle the mentioned issues:
+To address the limitations of RANSAC in plane detection within point clouds, a modified approach can be considered that combines RANSAC with additional techniques. Specifically, we can enhance the robustness of RANSAC by incorporating hierarchical clustering and adaptive parameter tuning. Here's a detailed approach to tackle the mentioned issues:
 
 - Preprocessing with Clustering:
         Hierarchical Clustering: Perform hierarchical clustering on the point cloud to segment it into smaller clusters that are more likely to represent individual planes or simpler geometric structures. This step helps to isolate different planes, making it easier for RANSAC to fit a plane model to each cluster.

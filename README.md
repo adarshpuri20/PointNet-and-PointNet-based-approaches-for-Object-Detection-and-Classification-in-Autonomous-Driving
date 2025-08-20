@@ -87,8 +87,9 @@ Usage in the Project
 In this project, the PointCloudSmoother class encapsulates the functionality of Poisson surface reconstruction. The main method poisson_surface_reconstruction performs the reconstruction and returns the smoothed mesh. 
 
 <p align="center">
-  <img src="images/pc_with_normals_smooth.png" width="50%" alt="Point Cloud with Normals Pre Smoothing">
-  <img src="images/smooth_mesh.png" width="50%" alt="Point Cloud Post Smoothing">
+  <img width="557" height="555" alt="image" src="https://github.com/user-attachments/assets/1ac257d6-a65b-450b-bf17-0b6d5de56a97" />
+<img width="648" height="600" alt="image" src="https://github.com/user-attachments/assets/553d824d-b94f-42cb-af57-808e40257e37" />
+
 </p>
 
 

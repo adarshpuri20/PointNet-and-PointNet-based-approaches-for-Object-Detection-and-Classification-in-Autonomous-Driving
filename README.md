@@ -11,3 +11,6 @@ Refer to Floor Detection subsection in Playground.ipynb
 For plane detection I experimented with three different approaches -
 
 RANSAC (Random Sample Consensus): Iteratively selects a random subset of points, fits a model (plane), and evaluates the fit by counting inliers within a distance threshold.
+
+<img width="623" height="625" alt="image" src="https://github.com/user-attachments/assets/ea2d4a4d-74b1-4da0-9561-eb109f5dc117" />
+

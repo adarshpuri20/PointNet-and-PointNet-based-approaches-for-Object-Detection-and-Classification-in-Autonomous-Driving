@@ -9,8 +9,8 @@ This project explores various operations and algorithms on point clouds using Py
 The project includes functionality for detecting planes in point clouds, reorienting these planes, and smoothing the point clouds using Poisson surface reconstruction. It aims to provide a comprehensive set of tools for point cloud manipulation and analysis.
 
 ### Plane Detector
-* The code of this section can be found in the [plane_detector.py](point_cloud_playground/plane_detector.py) file
-* Refer to Floor Detection subsection in [Playground.ipynb](./Playground.ipynb)
+* The code of this section can be found in the [plane_detector.py](point_cloud_projectCloud/plane_detector.py) file
+* Refer to Floor Detection subsection in [ProjectCloud.ipynb](./ProjectCloud.ipynb)
 
 For plane detection I experimented with three different approaches - 
 * RANSAC (Random Sample Consensus): Iteratively selects a random subset of points, fits a model (plane), and evaluates the fit by counting inliers within a distance threshold.
@@ -20,7 +20,7 @@ For plane detection I experimented with three different approaches -
 <img width="589" height="598" alt="image" src="https://github.com/user-attachments/assets/1884cc7d-c7f0-41c9-b458-d2bf552c78ee" />
 
 
-* PCA (Priniciple Component Analysis): Uses eigenvalue decomposition of the covariance matrix of the points to find the main directions of variation. The normal to the plane is given by the eigenvector corresponding to the smallest eigenvalue.
+* PCA (Principal Component Analysis): Uses eigenvalue decomposition of the covariance matrix of the points to find the main directions of variation. The normal to the plane is given by the eigenvector corresponding to the smallest eigenvalue.
 <img width="629" height="625" alt="image" src="https://github.com/user-attachments/assets/a42e2423-db9f-4204-9e40-74f999a802bf" />
 
 
@@ -66,9 +66,9 @@ To address the limitations of RANSAC in plane detection within point clouds, a m
         Plane Validation: After RANSAC detects a plane, validate the plane by checking the density and distribution of inliers. Planes with insufficient inliers can be discarded, and multiple planes detected within the same cluster can be further analyzed to distinguish between them.
 
 ### Plane Reorientation
-* The code for this section is in [utils.py](point_cloud_playground/utils.py)
+* The code for this section is in [utils.py](point_cloud_Projetcloud/utils.py)
 This is done by simply calculating the transformation matrix from the plane equation to Y-Z plane. And then applying the transformation to the pointcloud.
-Refer to Floor Reorientation subsection in [Playground.ipynb](./Playground.ipynb)
+Refer to Floor Reorientation subsection in [Projetcloud.ipynb](./Projetcloud.ipynb)
 
 
 ### Point Cloud Smoother
@@ -122,11 +122,11 @@ pip install -r requirements.txt
 ```
 3. Run the main script:
 ```sh
-python point_cloud_playground/main.py
+python point_cloud_projetcloud/main.py
 ```
 
 ## Detailed Walkthrough
-For a more detailed walkthrough of the code, check out the [Playground.ipynb](Playground.ipynb) notebook. It provides a step-by-step guide and explanations of the various functionalities implemented in this project.
+For a more detailed walkthrough of the code, check out the [Projetcloud.ipynb](Projetcloud.ipynb) notebook. It provides a step-by-step guide and explanations of the various functionalities implemented in this project.
 
 ## Contribution
 Contributions are welcome! Feel free to open issues or pull requests to suggest improvements or report bugs.
